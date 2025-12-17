@@ -22,6 +22,10 @@ for label,mood in enumerate(moodname):
             if len(aud)<22050*3:
                 aud = np.pad(aud,(0,22050*duration-len(aud)))
             
+            cent = lb.feature.spectral_centroid(y=aud,sr=sr)
+            CEmean = np.mean(cent)
+            CEstd = np.std(cent)
+
             mfcc = lb.feature.mfcc(y=aud,sr=sr,n_mfcc=13)
             Mmean = np.mean(mfcc,axis=1)
             Msd = np.std(mfcc,axis=1)
@@ -33,8 +37,7 @@ for label,mood in enumerate(moodname):
             cross = lb.feature.zero_crossing_rate(y=aud)
             CRmean = np.mean(cross)
             CRsd = np.std(cross)
-
-            resultant = np.hstack([Mmean,Msd,Cmean,Csd,CRmean,CRsd])
+            resultant = np.hstack([CEmean,CEstd,Mmean,Msd,Cmean,Csd,CRmean,CRsd])
 
             X.append(resultant)
             y.append(label)
