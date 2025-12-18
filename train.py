@@ -7,8 +7,8 @@ from sklearn.metrics import accuracy_score,classification_report
 from sklearn.utils.class_weight import compute_class_weight
 from sklearn.preprocessing import StandardScaler
 
-X = np.load(os.path.join("files\data\X.npy"))
-y = np.load(os.path.join("files\data\y.npy"))
+X = np.load(os.path.join("files\data1\X.npy"))
+y = np.load(os.path.join("files\data1\y.npy"))
 
 Xtrain,Xtest,ytrain,ytest = train_test_split(
     X,y,
@@ -25,7 +25,13 @@ weight = compute_class_weight(
     classes=classes,
     y=ytrain
 )
-classW = dict(zip(classes,weight))
+classW  = {
+    0: 1.3,  # happy
+    1: 1.4,  # sad
+    2: 0.9,  # stressed
+    3: 1.2   # calm
+}
+
 
 model = RandomForestClassifier(
     class_weight=classW,
@@ -39,4 +45,4 @@ ypred = model.predict(Xtest)
 print(accuracy_score(y_true=ytest,y_pred=ypred))
 print(classification_report(y_true=ytest,y_pred=ypred,target_names=["happy","sad","stressed","calm"]))
 
-jb.dump(model,"model88.pkl")
+jb.dump(model,"modelnoDIS.pkl")
