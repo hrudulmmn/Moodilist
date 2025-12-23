@@ -37,7 +37,10 @@ for label,mood in enumerate(moodname):
             cross = lb.feature.zero_crossing_rate(y=aud)
             CRmean = np.mean(cross)
             CRsd = np.std(cross)
-            resultant = np.hstack([CEmean,CEstd,Mmean,Msd,Cmean,Csd,CRmean,CRsd])
+            P = lb.yin(y=aud,fmin=50,fmax=300)
+            pm = P.mean()
+            ps = P.std()
+            resultant = np.hstack([CEmean,CEstd,Mmean,Msd,Cmean,Csd,CRmean,CRsd,pm,ps])
 
             X.append(resultant)
             y.append(label)
