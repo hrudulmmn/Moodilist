@@ -1,0 +1,82 @@
+
+html,body{
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+}
+
+.App {
+  display:flex;
+  flex-direction: column;
+  text-align: center;
+  align-content: center;
+  height: 100vh;
+  background-color: #4a3aff;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+@font-face{
+  font-family: 'Brittany Signature';
+  src:url('/public/BrittanySignature.ttf') format('truetype');
+}
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.record{
+  height: 200px;
+  width: 200px;
+  padding: 10px;
+  border: 4px solid white;
+  background-color: black;
+  border-radius: 100%;
+}
+.imgmic{
+  height: 80%;
+  width:80%;
+}
+
+.heading{
+  font-family:"Brittany Signature";
+  font-size: 72px;
+  align-self: center;
+}
+
+.box{
+  text-align: center;
+  align-items: center;
+  overflow: hidden;
+  justify-content: center;
+  min-height: 100vh;
+}

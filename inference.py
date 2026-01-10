@@ -26,37 +26,28 @@ def extract(aud,sr):
     resultant = resultant.reshape(1,-1)
     return resultant
 
+def infer(aud):
+    Win = 3
+    duration=5
+    step =1
+    sr = 22050
+    preds = []
 
-Win = 3
-duration=5
-step =1
-sr = 22050
-preds = []
+    model = jb.load("files\model\modelPitch.pkl")
 
+    for start in range(0,len(aud),step*sr):
+        end =  start + Win*sr
+        part = aud[start:end]
+        if len(part)<Win*sr:
+            break
+        
+        X = extract(part,sr)
+        preds.append(model.predict_proba(X)[0])
 
-print("REC.....")
-aud = sd.rec(samplerate=sr,
-             channels=1,
-             frames=int(duration*sr),
-             dtype='float32')
-sd.wait()
-aud = aud.flatten()
+    avg = np.mean(preds,axis=0)
 
-model = jb.load("files\model\modelPitch.pkl")
-
-for start in range(0,len(aud),step*sr):
-    end =  start + Win*sr
-    part = aud[start:end]
-    if len(part)<Win*sr:
-        break
-    
-    X = extract(part,sr)
-    preds.append(model.predict_proba(X)[0])
-
-avg = np.mean(preds,axis=0)
-
-moodname = ["happy","sad","stressed","calm"]
-if np.max(avg)<0.6:
-    print("calm")
-else:
-    print(moodname[np.argmax(avg)])
+    moodname = ["happy","sad","stressed","calm"]
+    if np.max(avg)<0.55:
+        return "calm",np.argmax(avg)
+    else:
+        return (moodname[np.argmax(avg)]),np.argmax(avg)
