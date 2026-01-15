@@ -8,6 +8,8 @@ export function Record(){
     const audiorec = useRef(null);
     const chunks = useRef([]);
     const [time,limit] = useState(5);
+    const [state,setState] = useState("idle");
+    const [mood,setMood] = useState(null);
     const animationref = useRef();
 
     const Startrec = async () => {
@@ -35,6 +37,7 @@ export function Record(){
         }
 
         audiorec.current.onstop = async () => {
+            setState("processing");
             cancelAnimationFrame(animationref.current);
             const WBlob = new Blob(chunks.current,{type:'audio/webm'});
             const arraybuffer = await WBlob.arrayBuffer();
@@ -55,6 +58,13 @@ export function Record(){
                 });
                 const res = await resp.json();
                 console.log(res);
+                setState("result");
+                setMood(res.mood)
+
+                setTimeout(()=>{
+                    setState("idle");
+                    setMood(null);
+                },4000)
             }
             catch(error){
                 console.log("Connection error");
@@ -62,6 +72,7 @@ export function Record(){
         }
         audiorec.current.start();
         recordState(true);
+        setState("recording");
         limit(5);
 
         const timer = setInterval(()=>{
@@ -77,5 +88,5 @@ export function Record(){
             });
         },1000)
     }
-    return {Startrec,recording,audiodata};
+    return {Startrec,recording,audiodata,state,mood};
 }

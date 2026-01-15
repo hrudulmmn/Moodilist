@@ -30,6 +30,10 @@ html,body{
   font-family: 'Brittany Signature';
   src:url('/public/BrittanySignature.ttf') format('truetype');
 }
+@font-face{
+  font-family: 'Manrope-Semibold';
+  src:url('/public/Manrope-SemiBold.ttf') format('truetype');
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -79,7 +83,6 @@ html,body{
   align-items: center;
   overflow: hidden;
   justify-content: center;
-  min-height: 100vh;
 }
 .bg{
   position: absolute;
@@ -91,4 +94,10 @@ html,body{
 }
 .contents{
   z-index: 2;
+}
+
+.desc{
+  color: white;
+  font-size: 14px;
+  font-family: "Manrope-Semibold";
 }
