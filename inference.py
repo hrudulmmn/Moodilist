@@ -33,7 +33,7 @@ def infer(aud):
     sr = 22050
     preds = []
 
-    model = jb.load("files\model\modelPitch.pkl")
+    model = jb.load("model\modelPitch.pkl")
 
     for start in range(0,len(aud),step*sr):
         end =  start + Win*sr
@@ -45,9 +45,9 @@ def infer(aud):
         preds.append(model.predict_proba(X)[0])
 
     avg = np.mean(preds,axis=0)
-
+    index = int(np.argmax(avg))
     moodname = ["happy","sad","stressed","calm"]
-    if np.max(avg)<0.55:
-        return "calm",np.argmax(avg)
+    if np.max(avg)<0.40:
+        return "calm",float(np.max(avg))
     else:
-        return (moodname[np.argmax(avg)]),np.argmax(avg)
+        return (moodname[index]),float(np.max(avg))

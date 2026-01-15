@@ -28,10 +28,7 @@ export function Record(){
         Update();
 
         audiorec.current = new MediaRecorder(stream);
-        audiorec.current.start();
         chunks.current = [];
-        recordState(true);
-        limit(5);
 
         audiorec.current.ondataavailable = (e) =>{
            if(e.data.size>0) chunks.current.push(e.data);
@@ -44,11 +41,28 @@ export function Record(){
             const context = new (window.AudioContext || window.webkitAudioContext)({sampleRate:22050});
             const audiobuffer = await context.decodeAudioData(arraybuffer);
             const wavarr = audioBufferToWav(audiobuffer);
-            const wav = new Blob([wavarr],{type:"audio/wav"})
+            const wav = new Blob([wavarr],{type:"audio/wav"});
 
-            stream.getTracks().forEach(track => track.stop())
-            recordState(false)
+            stream.getTracks().forEach(track => track.stop());
+            recordState(false);
+
+            const formdata = new FormData();
+            formdata.append("file",wav,"recording.wav");
+            try{
+                const resp = await fetch("http://127.0.0.1:8000/predict",{
+                    method: "POST",
+                    body: formdata
+                });
+                const res = await resp.json();
+                console.log(res);
+            }
+            catch(error){
+                console.log("Connection error");
+            }
         }
+        audiorec.current.start();
+        recordState(true);
+        limit(5);
 
         const timer = setInterval(()=>{
             limit((prev)=>{
@@ -61,7 +75,7 @@ export function Record(){
                 }
                 return prev-1;
             });
-        },5000)
+        },1000)
     }
     return {Startrec,recording,audiodata};
 }
