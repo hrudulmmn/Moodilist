@@ -4,7 +4,7 @@ import {Record} from './Record';
 import Face from './Liveface';
 import Silk from './Silk';
 import Mood from './MoodFace';
-
+import {AnimatePresence, motion} from 'framer-motion';
 
 function Mic({StartRecord}){
   return(
@@ -34,19 +34,40 @@ function Description({state,mood}){
 }
 
 function Render({state,mood,StartRecord,audiodata}){
+  return(
+  <AnimatePresence mode='wait'>
+    {(()=>{
   switch(state){
-      case "idle":return <Mic StartRecord={StartRecord}/> ;
-      case "recording":return <Face audiodata={audiodata}/>;
+      case "idle":return(
+        <motion.div key="idle" initial={{opacity:0,scale:0}} animate={{opacity:1,scale:1}} transition={{duration:0.7,delay:0.2,ease:"easeIn"}} exit={{opacity:0,scale:0}}>
+        <Mic StartRecord={StartRecord}/> 
+        </motion.div>
+      );
+
+      case "recording":return(
+        <motion.div key="rec" initial={{opacity:0,scale:0, y:20}} animate={{opacity:1,scale:1,y:0}} exit={{opacity:0,scale:0,y:-20}}>
+        <Face audiodata={audiodata}/>
+        </motion.div>
+      );
       case "processing":return(
+        <motion.div key="pros" initial={{opacity:0,rotateY:0}} animate={{opacity:1,rotateY:[0,180,360]}} exit={{opacity:0,scale:2,transition:{duration:2}}} transition={{rotateY:{repeat:Infinity , duration:1.5,ease:'linear'}}}>
         <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" transform="scale(1.4)">
         <rect x="50" y="50" width="100" height="100" 
         fill="black"
         transform="rotate(45,100,100)"  />
         </svg>
+        </motion.div>
       );
-      case "result":return <Mood mood={mood}/>;
+      case "result":return(
+        <motion.div key="res" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0,scale:0}} transition={{type:"spring",bounce:0.5}}>
+        <Mood mood={mood}/>
+        </motion.div>
+      );
       default: return null;
   }
+  })()}
+  </AnimatePresence>
+  );
 }
 
 export default function App() {
