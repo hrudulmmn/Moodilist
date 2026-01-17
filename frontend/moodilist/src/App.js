@@ -18,19 +18,23 @@ function Mic({StartRecord}){
 
 function Name(){
   return(
-    <p className="heading">Moodilist</p>
+    <motion.p className="heading" initial={{opacity:0,filter:"blur(20px)"}} animate={{opacity:1,filter:"blur(0px)"}} transition={{duration:0.7, type:"spring",stiffness:50,delay:0.2}}>Moodilist</motion.p>
   );
 }
 function Description({state,mood}){
-  {
+  return(
+    <AnimatePresence mode="wait">
+    {(()=>{
     switch(state){
-      case "idle":return <p>Click mic to start speaking</p>;
-      case "recording":return <p>Audio is being recorded</p>;
-      case "processing":return <p>Detecting Mood...</p>;
-      case "result":return <p>You are {mood}. Playing appropriate Music!</p>;
+      case "idle":return <motion.p key="idle" initial={{opacity:0,scale:0}} animate={{opacity:1,scale:1}} transition={{duration:0.7,delay:0.2}} exit={{opacity:0,scale:0}}>Click mic to start speaking</motion.p>;
+      case "recording":return <motion.p key="rec" initial={{opacity:0,scale:0}} animate={{opacity:1,scale:1}} exit={{opacity:0,scale:0}}>Audio is being recorded</motion.p>;
+      case "processing":return <motion.p key="pro" initial={{opacity:0,scale:0}} animate={{opacity:1,scale:1}} exit={{opacity:0,scale:0}}>Detecting Mood...</motion.p>;
+      case "result":return <motion.p key="res" initial={{opacity:0,scale:0}} animate={{opacity:1,scale:1}} exit={{opacity:0,scale:0}}>You are {mood}. Playing appropriate Music!</motion.p>;
       default: return null;
     }
-  }
+  })()}
+    </AnimatePresence>
+  );
 }
 
 function Render({state,mood,StartRecord,audiodata}){

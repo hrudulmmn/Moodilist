@@ -47,7 +47,7 @@ def infer(aud):
     avg = np.mean(preds,axis=0)
     index = int(np.argmax(avg))
     moodname = ["happy","sad","stressed","calm"]
-    if np.max(avg)<0.40:
+    if np.max(avg)<0.35:
         return "calm",float(np.max(avg))
     else:
         return (moodname[index]),float(np.max(avg))
