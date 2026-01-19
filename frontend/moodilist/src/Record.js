@@ -1,4 +1,4 @@
-import { useState,useRef} from "react";
+import {useState,useRef} from "react";
 import audioBufferToWav from "audiobuffer-to-wav";
 
 
@@ -10,6 +10,7 @@ export function Record(){
     const [time,limit] = useState(5);
     const [state,setState] = useState("idle");
     const [mood,setMood] = useState(null);
+    const [url,seturl] = useState(null)
     const animationref = useRef();
 
     const Startrec = async () => {
@@ -59,11 +60,11 @@ export function Record(){
                 const res = await resp.json();
                 console.log(res);
                 setState("result");
-                setMood(res.mood)
-
+                setMood(res.mood);
+                seturl(res.url)
+                
                 setTimeout(()=>{
-                    setState("idle");
-                    setMood(null);
+                    setState("playing");
                 },4000)
             }
             catch(error){
@@ -74,6 +75,7 @@ export function Record(){
         recordState(true);
         setState("recording");
         limit(5);
+
 
         const timer = setInterval(()=>{
             limit((prev)=>{
@@ -88,5 +90,5 @@ export function Record(){
             });
         },1000)
     }
-    return {Startrec,recording,audiodata,state,mood};
+    return {Startrec,recording,audiodata,state,mood,url};
 }

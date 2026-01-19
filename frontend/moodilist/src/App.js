@@ -5,6 +5,8 @@ import Face from './Liveface';
 import Silk from './Silk';
 import Mood from './MoodFace';
 import {AnimatePresence, motion} from 'framer-motion';
+import Player from './Embed';
+import retry from './assets/retry-svgrepo-com.svg'
 
 function Mic({StartRecord}){
   return(
@@ -37,7 +39,7 @@ function Description({state,mood}){
   );
 }
 
-function Render({state,mood,StartRecord,audiodata}){
+function Render({state,mood,StartRecord,audiodata,url}){
   return(
   <AnimatePresence mode='wait'>
     {(()=>{
@@ -67,6 +69,13 @@ function Render({state,mood,StartRecord,audiodata}){
         <Mood mood={mood}/>
         </motion.div>
       );
+      case "playing": return(
+        <motion.div initial={{opacity:0,h:20}} animate={{opacity:1,h:0}}><Player url={url}/>
+        <button onClick={()=>window.location.reload()} className='retbtn'>
+          <img src={retry} className='retry'/>
+        </button>
+        </motion.div>
+      );
       default: return null;
   }
   })()}
@@ -75,7 +84,7 @@ function Render({state,mood,StartRecord,audiodata}){
 }
 
 export default function App() {
-  const {Startrec,recording,audiodata,state,mood} = Record();
+  const {Startrec,recording,audiodata,state,mood,url} = Record();
   return (
     <section className='App'>
     <div className='bg'>  <Silk
@@ -89,7 +98,7 @@ export default function App() {
       <div className='contents'>
       <Name/>
       <div className="box">
-        <Render state={state} mood={mood} StartRecord={Startrec} audiodata={audiodata}/>
+        <Render state={state} mood={mood} StartRecord={Startrec} audiodata={audiodata} url={url}/>
       </div>
       <div className='desc'>
           <Description state={state} mood={mood}/>

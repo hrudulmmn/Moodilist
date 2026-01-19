@@ -73,7 +73,7 @@ html,body{
 
 .heading{
   font-family:"Brittany Signature";
-  font-size: 72px;
+  font-size: 64px;
   align-self: center;
   color: white;
 }
@@ -100,4 +100,40 @@ html,body{
   color: white;
   font-size: 14px;
   font-family: "Manrope-Semibold";
+}
+
+.player{
+  width: 25%;
+  height: 75%;
+  align-items: center;
+  justify-content: center;
+  display:flex;
+  gap: 3px;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.player-iframe {
+  filter: brightness(0.7) contrast(1.2) hue-rotate(245deg); 
+  background-color: #000; 
+  border-radius: 15px;
+  border: none;
+  display: block;
+  margin: 0 auto;
+}
+
+.retbtn{
+  height: 45px;
+  width: 45px;
+  padding: 10px;
+  border: 1px solid white;
+  background-color: black;
+  border-radius: 100%;
+  margin-top: 22px;
+}
+
+.retry{
+  height: 80%;
+  width:80%;
+  margin-top: 2px;
 }
