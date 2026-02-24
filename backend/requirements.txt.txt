@@ -5,3 +5,5 @@ python-multipart
 librosa
 numpy
 scipy
+sounddevice
+joblib
