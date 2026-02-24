@@ -7,7 +7,6 @@ export function Record(){
     const [audiodata,setAudiodata] = useState(new Uint8Array(0));
     const audiorec = useRef(null);
     const chunks = useRef([]);
-    const [time,limit] = useState(5);
     const [state,setState] = useState("idle");
     const [mood,setMood] = useState(null);
     const [url,seturl] = useState(null)

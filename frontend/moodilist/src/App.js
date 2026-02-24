@@ -72,7 +72,7 @@ function Render({state,mood,StartRecord,audiodata,url}){
       case "playing": return(
         <motion.div initial={{opacity:0,h:20}} animate={{opacity:1,h:0}}><Player url={url}/>
         <button onClick={()=>window.location.reload()} className='retbtn'>
-          <img src={retry} className='retry'/>
+          <img src={retry} alt="retry" className='retry'/>
         </button>
         </motion.div>
       );
@@ -84,7 +84,7 @@ function Render({state,mood,StartRecord,audiodata,url}){
 }
 
 export default function App() {
-  const {Startrec,recording,audiodata,state,mood,url} = Record();
+  const {Startrec,audiodata,state,mood,url} = Record();
   return (
     <section className='App'>
     <div className='bg'>  <Silk
