@@ -1,7 +1,7 @@
-import  sounddevice as sd
 import librosa as lb
 import joblib as jb
 import numpy as np
+import os
 
 def extract(aud,sr):
     cent = lb.feature.spectral_centroid(y=aud,sr=sr)
@@ -33,7 +33,7 @@ def infer(aud):
     sr = 22050
     preds = []
 
-    model = jb.load("model\modelPitch.pkl")
+    model = jb.load(os.path.join("model","modelPitch.pkl"))
 
     for start in range(0,len(aud),step*sr):
         end =  start + Win*sr
