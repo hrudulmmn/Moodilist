@@ -53,7 +53,7 @@ export function Record(){
             const formdata = new FormData();
             formdata.append("file",wav,"recording.wav");
             try{
-                const resp = await fetch("http://127.0.0.1:8000/predict",{
+                const resp = await fetch("http://moodilist-backend.onrender.com/predict",{
                     method: "POST",
                     body: formdata
                 });

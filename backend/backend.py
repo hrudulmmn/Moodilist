@@ -20,6 +20,10 @@ playlist = {
     "stressed":"https://open.spotify.com/embed/playlist/7qjMYTwBrkBxd3CcNSWJGT"
 }
 
+@app.get("/")
+def home():
+    return {"status": "running"}
+
 @app.post("/predict")
 async def processAud(file:UploadFile = File(...)):
     content = await file.read()
