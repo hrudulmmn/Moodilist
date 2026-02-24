@@ -3,6 +3,8 @@ import joblib as jb
 import numpy as np
 import os
 
+model = jb.load(os.path.join("model","modelPitch.pkl"))
+
 def extract(aud,sr):
     cent = lb.feature.spectral_centroid(y=aud,sr=sr)
     CEmean = np.mean(cent)
@@ -33,7 +35,7 @@ def infer(aud):
     sr = 22050
     preds = []
 
-    model = jb.load(os.path.join("model","modelPitch.pkl"))
+    
 
     for start in range(0,len(aud),step*sr):
         end =  start + Win*sr
