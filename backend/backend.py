@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import inference
 import uvicorn
 import librosa as lb
+import soundfile as sf
 
 app = FastAPI()
 
@@ -29,7 +30,7 @@ async def processAud(file:UploadFile = File(...)):
     content = await file.read()
     with open("recording.wav","wb") as f:
         f.write(content)
-    aud,sr = lb.load("recording.wav",sr=22050)
+    aud,sr = sf.read("recording.wav")
 
     mood,conf = inference.infer(aud)
     url = playlist[mood]
