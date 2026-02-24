@@ -7,6 +7,7 @@ export function Record(){
     const [audiodata,setAudiodata] = useState(new Uint8Array(0));
     const audiorec = useRef(null);
     const chunks = useRef([]);
+    const [time,limit] = useState(5);
     const [state,setState] = useState("idle");
     const [mood,setMood] = useState(null);
     const [url,seturl] = useState(null)
@@ -35,7 +36,7 @@ export function Record(){
         audiorec.current.ondataavailable = (e) =>{
            if(e.data.size>0) chunks.current.push(e.data);
         }
-
+        console.log(time);
         audiorec.current.onstop = async () => {
             setState("processing");
             cancelAnimationFrame(animationref.current);
