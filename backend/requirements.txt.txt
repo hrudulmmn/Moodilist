@@ -1,5 +1,7 @@
 fastapi
-fastapi.middleware.cors
 uvicorn
-librosa
 gunicorn
+python-multipart
+librosa
+numpy
+scipy
