@@ -120,9 +120,13 @@ html,body{
   border: none;
   display: block;
   margin: 0 auto;
-  max-width: 500px;
 }
-
+@media (max-width:600px){
+  .player {
+    width: 80%;
+    height: auto;
+  }
+}
 .retbtn{
   height: 45px;
   width: 45px;
