@@ -3,7 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import inference
 import uvicorn
 import librosa as lb
-import soundfile as sf
+import uuid
+import os
 
 app = FastAPI()
 
@@ -28,11 +29,13 @@ def home():
 @app.post("/predict")
 async def processAud(file:UploadFile = File(...)):
     content = await file.read()
-    with open("recording.wav","wb") as f:
+    filename = f"{uuid.uuid4()}.wav"
+    with open(filename,"wb") as f:
         f.write(content)
-    aud,sr = sf.read("recording.wav")
+    aud,sr = lb.load(filename,sr=22050)
 
     mood,conf = inference.infer(aud)
+    os.remove(filename)
     url = playlist[mood]
 
     return {"mood": str(mood) , "confidence":(conf),"url":str(url)}

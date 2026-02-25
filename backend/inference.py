@@ -3,7 +3,7 @@ import joblib as jb
 import numpy as np
 import os
 
-model = jb.load(os.path.join("model","modelPitch.pkl"))
+model = jb.load(os.path.join("modelPitch.pkl"))
 
 def extract(aud,sr):
     cent = lb.feature.spectral_centroid(y=aud,sr=sr)
