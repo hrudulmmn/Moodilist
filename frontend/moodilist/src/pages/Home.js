@@ -7,7 +7,7 @@ import Mood from '../components/MoodFace';
 import {AnimatePresence, motion} from 'framer-motion';
 import Player from '../components/Embed';
 import retry from '../assets/retry-svgrepo-com.svg'
-
+import { UserButton } from '@clerk/clerk-react';
 
 function Mic({StartRecord}){
   return(
@@ -96,6 +96,7 @@ export default function Home() {
           rotation={0}
         />
       </div>
+      <div className='Usericon'><UserButton afterSignOutUrl='/'/></div>
       <div className='contents'>
       <Name/>
       <div className="box">
