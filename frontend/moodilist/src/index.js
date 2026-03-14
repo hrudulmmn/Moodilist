@@ -9,11 +9,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const pubkey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
 root.render(
-  <React.StrictMode>
     <ClerkProvider publishableKey={pubkey}>
             <App/>
     </ClerkProvider>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

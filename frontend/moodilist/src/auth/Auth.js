@@ -10,7 +10,7 @@ export function Sign(){
                     <Navigate to="/home" replace/>
                     </SignedIn>
                     <SignedOut>
-                        <RedirectToSignIn/>
+                        <Navigate to="/signin"/>
                     </SignedOut>
                     </div>
                

@@ -1,5 +1,6 @@
 import {useState,useRef} from "react";
 import audioBufferToWav from "audiobuffer-to-wav";
+import { useUser } from "@clerk/clerk-react";
 
 
 export function Record(){
@@ -12,6 +13,7 @@ export function Record(){
     const [mood,setMood] = useState(null);
     const [url,seturl] = useState(null)
     const animationref = useRef();
+    const {user} = useUser();
 
     const Startrec = async () => {
         if (recording) return;
@@ -49,11 +51,15 @@ export function Record(){
 
             stream.getTracks().forEach(track => track.stop());
             recordState(false);
-
+            
+            const userid = user?.id;
+            const username = user?.firstName;
             const formdata = new FormData();
             formdata.append("file",wav,"recording.wav");
+            formdata.append("userid",userid);
+            formdata.append("username",username);
             try{
-                const resp = await fetch("https://hrudulmmn-moodilist-backend.hf.space/predict",{
+                const resp = await fetch("http://127.0.0.1:8000/predict",{
                     method: "POST",
                     body: formdata
                 });

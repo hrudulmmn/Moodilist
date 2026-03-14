@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Logup from "../pages/Signup";
 import {AnimatePresence} from 'framer-motion';
 import Silk from "../components/Silk";
+import { Sign } from "../auth/Auth";
 
 function Animatewait(){
     const location=useLocation();
@@ -11,7 +12,7 @@ function Animatewait(){
     return(
         <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
-                <Route path="/" element={<Navigate to = "/signin"/>}></Route>
+                <Route path="/" element={<Sign/>}></Route>
                 <Route path="/home" element={<Home/>}></Route>
                 <Route path="/signup" element={<Logup/>}></Route>
                 <Route path="/signin" element={<Login/>}></Route>
