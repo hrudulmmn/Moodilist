@@ -26,12 +26,19 @@ Full-stack web app that listens to your voice, detects your mood, and plays matc
 ## 🌐 Live Demo
 **[Try it live → https://moodilist.vercel.app/](https://moodilist.vercel.app/)**
 
-## 📹 Demo Video
-**Watch the full demo** → [Moodilist Demo Video (Release)](https://github.com/hrudulmmn/Moodilist/releases/download/YOUR-TAG-HERE/YOUR-FILENAME.mp4)
+## 📹 Demo Video 
+**Watch the full demo** → [Moodilist Demo Video (Release)](https://github.com/hrudulmmn/Moodilist/releases/tag/demo_vid)
 
-Or visit the release: [Moodilist Demo Release](https://github.com/hrudulmmn/Moodilist/releases/tag/YOUR-TAG-HERE)
-
-**→ Replace the two YOUR-... placeholders with your actual tag and filename after creating the release (same way you did for Kara).**
+## 📂 Project Structure
+```
+Moodilist/
+├── backend/
+├── frontend/moodilist/
+├── train.py
+├── datapitch/
+├── recording.wav
+└── Moodilist-demo.mp4
+```
 
 ## 🚀 Local Setup
 
@@ -48,17 +55,5 @@ npm install
 npm run dev
 ```
 
-## 📹 Demo Video 
-**Watch the full demo** → [Kara Demo Video (Release)](https://github.com/hrudulmmn/Kara/releases/tag/Demo_vid)
 
-## 📂 Project Structure
-```
-Moodilist/
-├── backend/
-├── frontend/moodilist/
-├── train.py
-├── datapitch/
-├── recording.wav
-└── Moodilist-demo.mp4
-```
 
